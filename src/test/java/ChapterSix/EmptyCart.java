@@ -1,6 +1,5 @@
 package ChapterSix;
 
-import com.sun.org.apache.bcel.internal.generic.DREM;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,16 +8,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
-
-import java.util.concurrent.TimeUnit;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class FillCartTest {
+public class EmptyCart {
 
     @Test
-    private void fillCart() {
+    private void emptyCart() {
         ChromeDriverManager.getInstance().setup();
         WebDriver driver = new ChromeDriver();
         String url = "https://techblog.polteq.com/testshop/index.php";
@@ -48,15 +44,7 @@ public class FillCartTest {
         WebElement checkOutHeader = driver.findElement(By.cssSelector("#cart_title > span"));
         assertThat(checkOutHeader.getText()).contains("1").as("cannot checkout, thus nothing added");
 
-
-//        assertThat(emptyCartAlert.getText()).contains("Product").as("cart is not empty");
-//        driver.findElement(By.className("span.ajax_cart_product_txt:nth-child(3)")).click();
-
-//
-//        WebElement proceedButton = driver.findElement(By.cssSelector(".standard-checkout > span:nth-child(1)"));
-//        assertThat(emptyCartAlert.getText()).contains("empty").as("cart is not empty");
-        // or via the overlay
-//        driver.findElement(By.cssSelector("ul.active > li:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(4) > a:nth-child(1) > span:nth-child(1)")).click();
-
+        driver.findElement(By.cssSelector("#product_2_2_0_0 > td.cart_delete.text-center")).click();
+        assertThat(driver.findElement(By.cssSelector("#center_column > p")).getText()).contains("empty").as("cart is not empty");
     }
 }

@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FirstSeleniumTest {
+public class FirstSeleniumTest{
 
     @Test
     private void logInSuccesfull() {

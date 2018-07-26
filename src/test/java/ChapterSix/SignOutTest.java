@@ -1,26 +1,19 @@
 package ChapterSix;
 
-import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SignOutTest {
-    @Test
+public class SignOutTest extends TestShopScenario {
 
-    private void logIn() {
-        ChromeDriverManager.getInstance().setup();
-        WebDriver driver = new ChromeDriver();
-        String url = "https://techblog.polteq.com/testshop/index.php";
+    @Test
+    public void logIn() {
         String emailAdress = "ben.brugman@polteq.com";
         String password = "polteq";
 
-        driver.get(url);
-        driver.manage().window().maximize();
+
         driver.findElement(By.cssSelector("a.login")).click();
         driver.findElement(By.cssSelector("#email")).sendKeys(emailAdress);
         driver.findElement(By.cssSelector("#passwd")).sendKeys(password);
@@ -35,14 +28,10 @@ public class SignOutTest {
     }
 
     @Test
-    private void logOut() {
-        ChromeDriverManager.getInstance().setup();
-        WebDriver driver = new ChromeDriver();
-        String url = "https://techblog.polteq.com/testshop/index.php";
+    public void logOut() {
         String emailAdress = "ben.brugman@polteq.com";
         String password = "polteq";
 
-        driver.get(url);
         driver.manage().window().maximize();
         driver.findElement(By.cssSelector("a.login")).click();
         driver.findElement(By.cssSelector("#email")).sendKeys(emailAdress);
