@@ -36,7 +36,8 @@ public class FillCartTest {
 
         driver.findElement(By.cssSelector(".logo")).click();
         driver.findElement(By.cssSelector("#tags_block_left > div > a.tag_level3.first_item")).click();
-        driver.findElement(By.className("replace-2x")).click();
+//        driver.findElement(By.className("replace-2x")).click();
+        driver.findElement(By.cssSelector("#product_list > li.ajax_block_product.col-xs-12.col-sm-6.col-md-4.last-line.last-item-of-tablet-line.last-mobile-line > div > div.left-block > div > a > img")).click();
         driver.findElement(By.cssSelector("#add_to_cart")).click();
 
         WebElement button = new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[class=\"btn btn-default button button-medium\"")));
