@@ -4,14 +4,21 @@ import org.testng.annotations.Test;
 
 import java.util.Random;
 
-public class AboutMethods {
+public class AboutMethods extends Parameters {
     int outcome;
     String method;
 
-    public int getRandomNumberInRange() {
+    public int getRandomNumberInRange(int variant) {
         Random r = new Random();
-        return r.nextInt((4 - 1) + 1) + 1;
+        int valueToReturn = 0;
+        if (variant == 1) {
+            valueToReturn = r.nextInt((4 - 1) + 1) + 1;
+        } else if (variant == 2) {
+            valueToReturn = r.nextInt((100 - 1) + 1) + 1;
+        }
+        return valueToReturn;
     }
+
 
     public int multiply(int firstDigit, int secondDigit, int calculation) {
         if (calculation == 1) {
@@ -20,23 +27,26 @@ public class AboutMethods {
         } else if (calculation == 2) {
             outcome = firstDigit - secondDigit;
             method = "subtract";
-        }else if (calculation == 3) {
+        } else if (calculation == 3) {
             outcome = firstDigit * secondDigit;
             method = "multiply";
-        }else if (calculation == 4) {
+        } else if (calculation == 4) {
             outcome = firstDigit / secondDigit;
             method = "divide";
         }
         return outcome;
     }
 
-    public String getMethod(){
+    public String getMethod() {
         return method;
     }
 
     @Test
     private void printProduct() {
-        System.out.println(multiply(5, 25, getRandomNumberInRange()));
-        System.out.println(getMethod());
+        int firstNumber = getRandomNumberInRange(RANDOM_NUMBER);
+        int secondNumber = getRandomNumberInRange(RANDOM_NUMBER);
+        System.out.println(multiply(firstNumber, secondNumber,
+                getRandomNumberInRange(RANDOM_MATH_METHOD)));
+        System.out.println("Method " + getMethod() + " First number " + firstNumber + " Second number " + secondNumber );
     }
 }

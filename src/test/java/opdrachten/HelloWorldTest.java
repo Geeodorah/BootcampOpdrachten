@@ -13,7 +13,7 @@ public class HelloWorldTest extends AboutMethods{
 
     @Test
     public void testTwo(){
-        System.out.println(multiply(12,6,getRandomNumberInRange()));
+        System.out.println(multiply(12,6,getRandomNumberInRange(RANDOM_MATH_METHOD)));
         System.out.println(getMethod());
     }
 }
