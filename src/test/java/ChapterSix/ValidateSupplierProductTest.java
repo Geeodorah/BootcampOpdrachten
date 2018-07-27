@@ -8,7 +8,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
+
 public class ValidateSupplierProductTest {
+    WebElement elementToUse;
 
     @Test
     public void logIn() {
@@ -18,20 +23,34 @@ public class ValidateSupplierProductTest {
 
 
         driver.get(url);
-//        driver.manage().window().maximize();
-
-        String usernameOld = "Ben Brugman";
-        String usernameChangeInto = "Ben";
-        String emailAdress = "ben.brugman@polteq.com";
-        String password = "polteq";
-
-        // navigate to page
-        driver.findElement(By.cssSelector("a.login")).click();
-        driver.findElement(By.cssSelector("#email")).sendKeys(emailAdress);
-        driver.findElement(By.cssSelector("#passwd")).sendKeys(password);
-        driver.findElement(By.cssSelector("#SubmitLogin")).click();
 
         Select dropdown = new Select(driver.findElement(By.cssSelector("#suppliers_block_left > div > form > div > div > select")));
-        dropdown.selectByIndex(0);
+        dropdown.selectByIndex(1);
+
+        List<WebElement> centreColumn = driver.findElements(By.className("right-block"));
+
+        for (WebElement element : centreColumn) {
+
+            if (element.getText().contains("MacBook Air")) {
+
+                assertThat(element.getText()).contains("MacBook Air").as("MacBook Air not in stock");
+                System.out.println("Element found");
+            } else if (element.getAttribute("title").contains("MacBook Air")) {
+                System.out.println("Element found in Attribute");
+            }
+            else {
+                System.out.println(element.getText() + "No such element found");
+            }
+
+
+//            WebElement textOnPage = element.findElement(By.cssSelector("#product_list > li.ajax_block_product.col-xs-12.col-sm-6.col-md-4.last-in-line.last-line.last-item-of-tablet-line.last-item-of-mobile-line.last-mobile-line"));
+//            WebElement itemInWrapper = textOnPage.findElement(By.className("product-container"));
+//            WebElement rightBlock = itemInWrapper.findElement(By.className("right-block"));
+//            WebElement itemProp = rightBlock.findElement(By.cssSelector("#product_list > li.ajax_block_product.col-xs-12.col-sm-6.col-md-4.last-in-line.last-line.last-item-of-tablet-line.last-item-of-mobile-line.last-mobile-line > div > div.right-block > h5"));
+//            WebElement namePart = itemProp.findElement(By.className("product-name"));
+
+//            assertThat(namePart.getText()).isEqualTo("MacBook Air").as("MacBook Air not in stock");
+//            assertThat(element.getText()).contains("MacBook Air").as("MacBook Air not in stock");
+        }
     }
 }
