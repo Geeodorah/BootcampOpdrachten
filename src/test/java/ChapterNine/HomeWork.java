@@ -1,11 +1,8 @@
 package ChapterNine;
 
 import ChapterSix.TestShopScenario;
-import Pages.HomePage;
-import Pages.LoginPage;
-import Pages.MyAccountPage;
-import Pages.WishListPage;
 import org.testng.annotations.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class HomeWork extends TestShopScenario {
@@ -17,36 +14,56 @@ public class HomeWork extends TestShopScenario {
     @Test
     private void fixTableChallenge() {
 
-        // load page objects
-        HomePage homePage = new HomePage(driver);
-        LoginPage loginPage = new LoginPage(driver);
-        MyAccountPage myAccountPage = new MyAccountPage(driver);
-        WishListPage wishListPage = new WishListPage(driver);
+        navigateToLoginPage();
 
-        // navigate to login page
-        assertThat(homePage.loginButton().isDisplayed()).isTrue().as("There is already a user logged in");
-        homePage.navigateToLogInPage();
+        // uses email & password variable
+        logInWithCredentials();
 
-        // login
-        assertThat(driver.getTitle().equals("Authentication - TestShop")).as("whoops, we arn't on the login / authentication page.");
-        loginPage.login(email, password);
-        assertThat(myAccountPage.getHeaderName().getText().equals("My Account")).as(" not logged in");
+        openWishListPage();
 
-        // open wishList page
-        myAccountPage.clickButton(myAccountPage.wishListButton);
+        // check if the wishList exists, uses wishListToDelete variable
+        checkForWishListPresence();
 
-        // check if the wishList exists
-        // Paramater: the table and name of wishlist to be delete
-        wishListPage.checkForWishListPresence(wishListPage.getTable(), wishListToDelete);
-
-        // insert magic
-        // Paramater: the table and name of wishlist to be delete
-        wishListPage.unravelTable(wishListPage.getTable(), wishListToDelete);
-
-
+        // insert deleteWishList
+        deleteWishList();
     }
 
+    private void navigateToLoginPage() {
+        assertThat(homePage.loginButton().isDisplayed()).isTrue().as("There is already a user logged in");
+        homePage.navigateToLogInPage();
+        assertThat(driver.getTitle()).isEqualTo("Authentication - TestShop").as("whoops, we arn't on the login / authentication page" + getCurrentPage());
+    }
 
+    private void logInWithCredentials() {
+        loginPage.login(email, password);
+        assertThat(myAccountPage.getHeaderName()).isEqualTo("MY ACCOUNT").as("not logged in" + getCurrentPage());
+        assertThat(homePage.logOutButton().isDisplayed()).isTrue().as("Login failed");
+    }
 
+    private void openWishListPage() {
+        myAccountPage.clickButton(myAccountPage.wishListButton);
+        assertThat(wishListPage.getHeaderName()).isEqualTo("MY WISHLISTS").as("you are not on the wishList page" + getCurrentPage());
+    }
 
+    private void checkForWishListPresence() {
+        if (!wishListPage.checkForWishListPresence(wishListToDelete)){
+            wishListPage.createWishList(wishListToDelete);
+        }
+        assertThat(wishListPage.checkForWishListPresence(wishListToDelete)).isTrue().as("the table doesn't contain you wish even after attempting to create one");
+        //* todo assert if wishList to delete exists
+    }
+
+    private void deleteWishList() {
+        wishListPage.deleteWishList(wishListToDelete);
+        assertThat(wishListPage.checkForWishListPresence(wishListToDelete)).isFalse().as("the wishList is not deleted");
+    }
+
+    private void createWhishListForNextRun(){
+        assertThat(wishListPage.checkForWishListPresence(wishListToDelete)).isFalse().as("the wishList already exists");
+        wishListPage.createWishList(wishListToDelete);
+    }
+
+    private String getCurrentPage() {
+        return ", you are one the " + driver.getCurrentUrl() + " page when this happened";
+    }
 }

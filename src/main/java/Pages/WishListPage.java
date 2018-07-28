@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WishListPage {
+public class WishListPage extends GenericPage {
     private final WebDriver driver;
 
     private By tableContents = By.cssSelector("tr[id*=\"wishlist_\"]");
@@ -18,6 +18,7 @@ public class WishListPage {
     private By saveWishListButton = By.cssSelector("#submitWishlist");
 
     public WishListPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
@@ -25,19 +26,21 @@ public class WishListPage {
         return driver.findElements(tableContents);
     }
 
-    public void unravelTable(List<WebElement> table, String wishListToDelete) {
+    public void deleteWishList(String wishListToDelete) {
+        List<WebElement> table = getTable();
         for (WebElement e : table) {
             if (e.getText().contains(wishListToDelete)) {
                 e.findElement(By.cssSelector("td.wishlist_delete > a")).click();
                 //* todo change to accept and run createWishList
                 driver.switchTo().alert().dismiss();
-//                createWishList();
+//                createWishList(wishListToDelete);
                 break;
             }
         }
     }
 
-    public void checkForWishListPresence(List<WebElement> table, String wishListToDelete) {
+    public Boolean checkForWishListPresence(String wishListToDelete) {
+        List<WebElement> table = getTable();
         ArrayList<Boolean> checkList = new ArrayList<Boolean>();
         for (WebElement e : table) {
             if (e.getText().contains(wishListToDelete)) {
@@ -46,17 +49,20 @@ public class WishListPage {
                 checkList.add(false);
             }
         }
-        if (!checkList.contains(true))
-            createWishList();
+        return checkList.contains(true);
+//        if (!checkList.contains(true))
+//            createWishList(wishListToDelete);
     }
 
-    public void createWishList() {
+    public void createWishList(String wishListToDelete) {
         //*todo change to variable String
         driver.findElement(newWishListNameInputField).clear();
-//        driver.findElement(newWishListNameInputField).sendKeys(wishListToDelete);
-        driver.findElement(newWishListNameInputField).sendKeys("FietsTas");
+        driver.findElement(newWishListNameInputField).sendKeys(wishListToDelete);
         driver.findElement(saveWishListButton).click();
+    }
 
-
+    @Override
+    public String getHeaderName() {
+        return driver.findElement(By.className("page-heading")).getText();
     }
 }

@@ -4,12 +4,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class MyAccountPage {
+public class MyAccountPage extends GenericPage{
     private final WebDriver driver;
 
     public By wishListButton = By.className("lnk_wishlist");
 
     public MyAccountPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
@@ -17,7 +18,8 @@ public class MyAccountPage {
         driver.findElement(button).click();
     }
 
-    public WebElement getHeaderName(){
-        return driver.findElement(By.cssSelector("page-heading"));
+    @Override
+    public String getHeaderName(){
+        return driver.findElement(By.className("page-heading")).getText();
     }
 }

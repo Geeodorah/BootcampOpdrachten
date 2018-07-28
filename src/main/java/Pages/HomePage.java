@@ -22,4 +22,8 @@ public class HomePage {
     public WebElement loginButton(){
         return driver.findElement(By.cssSelector("a.login"));
     }
+
+    public WebElement logOutButton(){
+        return driver.findElement(By.cssSelector("a.logout"));
+    }
 }
