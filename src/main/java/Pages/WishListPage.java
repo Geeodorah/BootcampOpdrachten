@@ -17,8 +17,6 @@ public class WishListPage {
 
     private By saveWishListButton = By.cssSelector("#submitWishlist");
 
-    private String wishListToDelete = "No Pain No Gain";
-
     public WishListPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -27,7 +25,7 @@ public class WishListPage {
         return driver.findElements(tableContents);
     }
 
-    public void unravelTable(List<WebElement> table) {
+    public void unravelTable(List<WebElement> table, String wishListToDelete) {
         for (WebElement e : table) {
             if (e.getText().contains(wishListToDelete)) {
                 e.findElement(By.cssSelector("td.wishlist_delete > a")).click();
@@ -39,7 +37,7 @@ public class WishListPage {
         }
     }
 
-    public void checkForWishListPresence(List<WebElement> table) {
+    public void checkForWishListPresence(List<WebElement> table, String wishListToDelete) {
         ArrayList<Boolean> checkList = new ArrayList<Boolean>();
         for (WebElement e : table) {
             if (e.getText().contains(wishListToDelete)) {
@@ -55,7 +53,6 @@ public class WishListPage {
     public void createWishList() {
         //*todo change to variable String
         driver.findElement(newWishListNameInputField).clear();
-        ;
 //        driver.findElement(newWishListNameInputField).sendKeys(wishListToDelete);
         driver.findElement(newWishListNameInputField).sendKeys("FietsTas");
         driver.findElement(saveWishListButton).click();

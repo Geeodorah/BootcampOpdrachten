@@ -2,6 +2,7 @@ package Pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class MyAccountPage {
     private final WebDriver driver;
@@ -14,5 +15,9 @@ public class MyAccountPage {
 
     public void clickButton(By button){
         driver.findElement(button).click();
+    }
+
+    public WebElement getHeaderName(){
+        return driver.findElement(By.cssSelector("page-heading"));
     }
 }
