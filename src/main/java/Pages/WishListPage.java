@@ -50,8 +50,6 @@ public class WishListPage extends GenericPage {
             }
         }
         return checkList.contains(true);
-//        if (!checkList.contains(true))
-//            createWishList(wishListToDelete);
     }
 
     public void createWishList(String wishListToDelete) {

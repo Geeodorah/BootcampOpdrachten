@@ -26,6 +26,9 @@ public class HomeWork extends TestShopScenario {
 
         // insert deleteWishList
         deleteWishList();
+
+        // reset start situation, uses wishListToDelete variable
+        createWishListForNextRun();
     }
 
     private void navigateToLoginPage() {
@@ -58,7 +61,7 @@ public class HomeWork extends TestShopScenario {
         assertThat(wishListPage.checkForWishListPresence(wishListToDelete)).isFalse().as("the wishList is not deleted");
     }
 
-    private void createWhishListForNextRun(){
+    private void createWishListForNextRun(){
         assertThat(wishListPage.checkForWishListPresence(wishListToDelete)).isFalse().as("the wishList already exists");
         wishListPage.createWishList(wishListToDelete);
     }
