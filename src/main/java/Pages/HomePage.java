@@ -7,7 +7,10 @@ import org.openqa.selenium.WebElement;
 public class HomePage extends GenericPage {
     private final WebDriver driver;
 
-    private By loginButton = By.cssSelector("a.login");
+
+
+//    private By loginButton = By.cssSelector("a.login");
+    private By loginButton = By.className("header_user_info");
 
 
     public HomePage(WebDriver driver) {
@@ -22,10 +25,10 @@ public class HomePage extends GenericPage {
     }
 
     public WebElement loginButton(){
-        return driver.findElement(By.cssSelector("a.login"));
+        return driver.findElement(loginButton);
     }
 
     public WebElement logOutButton(){
-        return driver.findElement(By.cssSelector("a.logout"));
+        return driver.findElement(loginButton);
     }
 }

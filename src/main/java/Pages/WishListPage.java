@@ -1,6 +1,5 @@
 package Pages;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,13 +14,15 @@ public class WishListPage extends GenericPage {
 
     int listPositionToDelete;
 
+    public int lengthOfInitialList;
+
     private By tableContents = By.cssSelector("tr[id*=\"wishlist_\"]");
 
     private By newWishListNameInputField = By.cssSelector("#name");
 
     private By saveWishListButton = By.cssSelector("#submitWishlist");
 
-    private By headerElement = By.className("block-center");
+    private By headerElement = By.cssSelector("#block-history > table");
 
     public WishListPage(WebDriver driver) {
         super(driver);
@@ -29,7 +30,8 @@ public class WishListPage extends GenericPage {
     }
 
     public List<WebElement> getTable() {
-        return driver.findElements(tableContents);
+        List<WebElement> table = driver.findElements(tableContents);
+        return table;
     }
 
     public void deleteWishList(String wishListToDelete) {
@@ -42,6 +44,7 @@ public class WishListPage extends GenericPage {
         int positionInList = 0;
         List<WebElement> table = getTable();
         ArrayList<Boolean> checkList = new ArrayList<Boolean>();
+        lengthOfInitialList = table.size();
         for (WebElement e : table) {
             if (e.getText().contains(wishListToDelete)) {
                 checkList.add(true);
@@ -50,11 +53,13 @@ public class WishListPage extends GenericPage {
                 checkList.add(false);
             }
             positionInList++;
+
         }
+
         return checkList.contains(true);
     }
 
-    public WebElement waitForTableToAppear(){
+    public WebElement waitForTableToAppear() {
         WebElement wishListHeader = new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(headerElement));
         return wishListHeader;
     }
@@ -63,6 +68,14 @@ public class WishListPage extends GenericPage {
         driver.findElement(newWishListNameInputField).clear();
         driver.findElement(newWishListNameInputField).sendKeys(wishListToDelete);
         driver.findElement(saveWishListButton).click();
+    }
+
+    public int getLengthOfInitialList() {
+        return lengthOfInitialList;
+    }
+
+    public int getCurrentListLength(){
+        return getTable().size();
     }
 
     @Override

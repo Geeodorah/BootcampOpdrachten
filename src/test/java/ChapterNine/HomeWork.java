@@ -28,7 +28,11 @@ public class HomeWork extends TestShopScenario {
         deleteWishList();
 
         // reset start situation, uses wishListToDelete variable
+
         createWishListForNextRun();
+
+//        navigateToLoginPage();
+//        logInWithCredentials();
     }
 
     private void navigateToLoginPage() {
@@ -49,7 +53,7 @@ public class HomeWork extends TestShopScenario {
     }
 
     private void checkForWishListPresence() {
-        if (!wishListPage.checkForWishListPresence(wishListToDelete)){
+        if (!wishListPage.checkForWishListPresence(wishListToDelete)) {
             wishListPage.createWishList(wishListToDelete);
         }
         assertThat(wishListPage.checkForWishListPresence(wishListToDelete)).isEqualTo(true).as("the table doesn't contain your wishList even after attempting to create one");
@@ -58,14 +62,27 @@ public class HomeWork extends TestShopScenario {
 
     private void deleteWishList() {
         wishListPage.deleteWishList(wishListToDelete);
+        driver.manage().deleteAllCookies();
+        while (wishListPage.getCurrentListLength() == wishListPage.getLengthOfInitialList()) {
+            if (wishListPage.getCurrentListLength() < wishListPage.getLengthOfInitialList()) {
+                continue;
+            } else {
+                continue;
+            }
+        }
         assertThat(wishListPage.waitForTableToAppear().isDisplayed()).isTrue();
         assertThat(wishListPage.checkForWishListPresence(wishListToDelete)).isEqualTo(false).as("the wishList is not deleted");
     }
 
-    private void createWishListForNextRun(){
+    private void createWishListForNextRun() {
+        navigateToLoginPage();
+        logInWithCredentials();
+        openWishListPage();
         assertThat(wishListPage.checkForWishListPresence(wishListToDelete)).isEqualTo(false).as("the wishList already exists");
         wishListPage.createWishList(wishListToDelete);
     }
+
+
 
     private String getCurrentPage() {
         return ", you are one the " + driver.getCurrentUrl() + " page when this happened";
