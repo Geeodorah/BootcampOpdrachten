@@ -52,17 +52,18 @@ public class HomeWork extends TestShopScenario {
         if (!wishListPage.checkForWishListPresence(wishListToDelete)){
             wishListPage.createWishList(wishListToDelete);
         }
-        assertThat(wishListPage.checkForWishListPresence(wishListToDelete)).isTrue().as("the table doesn't contain you wish even after attempting to create one");
+        assertThat(wishListPage.checkForWishListPresence(wishListToDelete)).isEqualTo(true).as("the table doesn't contain your wishList even after attempting to create one");
         //* todo assert if wishList to delete exists
     }
 
     private void deleteWishList() {
         wishListPage.deleteWishList(wishListToDelete);
-        assertThat(wishListPage.checkForWishListPresence(wishListToDelete)).isFalse().as("the wishList is not deleted");
+        assertThat(wishListPage.waitForTableToAppear().isDisplayed()).isTrue();
+        assertThat(wishListPage.checkForWishListPresence(wishListToDelete)).isEqualTo(false).as("the wishList is not deleted");
     }
 
     private void createWishListForNextRun(){
-        assertThat(wishListPage.checkForWishListPresence(wishListToDelete)).isFalse().as("the wishList already exists");
+        assertThat(wishListPage.checkForWishListPresence(wishListToDelete)).isEqualTo(false).as("the wishList already exists");
         wishListPage.createWishList(wishListToDelete);
     }
 
