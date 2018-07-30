@@ -47,11 +47,11 @@ public class ValidateSupplierProductTest {
         assertThat(elementFound).isTrue().as("no object found to validate");
 
 
-//            WebElement textOnPage = element.findElement(By.cssSelector("#product_list > li.ajax_block_product.col-xs-12.col-sm-6.col-md-4.last-in-line.last-line.last-item-of-tablet-line.last-item-of-mobile-line.last-mobile-line"));
-//            WebElement itemInWrapper = textOnPage.findElement(By.className("product-container"));
-//            WebElement rightBlock = itemInWrapper.findElement(By.className("right-block"));
-//            WebElement itemProp = rightBlock.findElement(By.cssSelector("#product_list > li.ajax_block_product.col-xs-12.col-sm-6.col-md-4.last-in-line.last-line.last-item-of-tablet-line.last-item-of-mobile-line.last-mobile-line > div > div.right-block > h5"));
-//            WebElement namePart = itemProp.findElement(By.className("product-name"));
+//            WebElement textOnPage = element.findElementBy(By.cssSelector("#product_list > li.ajax_block_product.col-xs-12.col-sm-6.col-md-4.last-in-line.last-line.last-item-of-tablet-line.last-item-of-mobile-line.last-mobile-line"));
+//            WebElement itemInWrapper = textOnPage.findElementBy(By.className("product-container"));
+//            WebElement rightBlock = itemInWrapper.findElementBy(By.className("right-block"));
+//            WebElement itemProp = rightBlock.findElementBy(By.cssSelector("#product_list > li.ajax_block_product.col-xs-12.col-sm-6.col-md-4.last-in-line.last-line.last-item-of-tablet-line.last-item-of-mobile-line.last-mobile-line > div > div.right-block > h5"));
+//            WebElement namePart = itemProp.findElementBy(By.className("product-name"));
 
 //            assertThat(namePart.getText()).isEqualTo("MacBook Air").as("MacBook Air not in stock");
 //            assertThat(element.getText()).contains("MacBook Air").as("MacBook Air not in stock");

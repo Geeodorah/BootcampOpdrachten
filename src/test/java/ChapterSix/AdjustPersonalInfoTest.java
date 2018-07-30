@@ -53,7 +53,7 @@ public class AdjustPersonalInfoTest {
             driver.findElement(By.cssSelector("#old_passwd")).sendKeys(password);
             driver.findElement(By.cssSelector("#center_column > div > form > fieldset > div:nth-child(11) > button")).click();
         }
-//        assertThat(driver.findElement(By.cssSelector("#header > div.nav > div > div > nav > div:nth-child(2) > a")).getText().equals(usernameChangeInto)).as("name isn't stored correctly");
+//        assertThat(driver.findElementBy(By.cssSelector("#header > div.nav > div > div > nav > div:nth-child(2) > a")).getText().equals(usernameChangeInto)).as("name isn't stored correctly");
         String setName = driver.findElement(By.xpath("//*[@id=\"header\"]/div[1]/div/div/nav/div[2]/a")).getText();
         assertThat(setName).isEqualTo(usernameOld).as("name isn't stored correctly");
 

@@ -9,6 +9,7 @@ public class HomeWork extends TestShopScenario {
     public String email = "ben@brugman.com";
     public String password = "1qazxsw2";
     public String wishListToDelete = "No Pain No Gain";
+    public String actionToPerform = "Delete";
 
 
     @Test
@@ -21,11 +22,13 @@ public class HomeWork extends TestShopScenario {
 
         openWishListPage();
 
+//        wishListPage.findColumn("Delete");
+
         // check if the wishList exists, uses wishListToDelete variable
         checkForWishListPresence();
 
         // insert deleteWishList
-        deleteWishList();
+        deleteWishList(wishListToDelete);
 
         // reset start situation, uses wishListToDelete variable
 
@@ -60,9 +63,8 @@ public class HomeWork extends TestShopScenario {
         //* todo assert if wishList to delete exists
     }
 
-    private void deleteWishList() {
-        wishListPage.deleteWishList(wishListToDelete);
-        driver.manage().deleteAllCookies();
+    private void deleteWishList(String wishListToDelete) {
+        wishListPage.deleteWishList(wishListToDelete, actionToPerform);
         while (wishListPage.getCurrentListLength() == wishListPage.getLengthOfInitialList()) {
             if (wishListPage.getCurrentListLength() < wishListPage.getLengthOfInitialList()) {
                 continue;
@@ -70,7 +72,6 @@ public class HomeWork extends TestShopScenario {
                 continue;
             }
         }
-        assertThat(wishListPage.waitForTableToAppear().isDisplayed()).isTrue();
         assertThat(wishListPage.checkForWishListPresence(wishListToDelete)).isEqualTo(false).as("the wishList is not deleted");
     }
 

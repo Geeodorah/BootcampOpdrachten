@@ -20,8 +20,8 @@ public class HomePage extends GenericPage {
 
 
     public void navigateToLogInPage() {
-        clickElement(loginButton);
-//        driver.findElement(loginButton).click();
+        clickElementBy(loginButton);
+//        driver.findElementBy(loginButton).click();
     }
 
     public WebElement loginButton(){
