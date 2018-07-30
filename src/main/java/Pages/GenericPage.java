@@ -3,6 +3,7 @@ package Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
@@ -33,5 +34,10 @@ public class GenericPage {
 
     public String getHeaderName() {
         return driver.findElement(By.className("page-heading")).getText();
+    }
+
+    public void waitAndClick(WebElement element, int waitFor) {
+        WebElement button = new WebDriverWait(driver, waitFor).until(ExpectedConditions.elementToBeClickable(element));
+        button.click();
     }
 }

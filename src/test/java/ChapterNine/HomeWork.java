@@ -1,15 +1,20 @@
 package ChapterNine;
 
 import ChapterSix.TestShopScenario;
+import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
+import java.util.concurrent.TimeUnit;
+
+import static Pages.Parameters.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class HomeWork extends TestShopScenario {
     public String email = "ben@brugman.com";
     public String password = "1qazxsw2";
     public String wishListToDelete = "No Pain No Gain";
-    public String actionToPerform = "Delete";
+    public String actionToPerform = DELETE;
+    private By loginButton = By.className("header_user_info");
 
 
     @Test
@@ -22,8 +27,6 @@ public class HomeWork extends TestShopScenario {
 
         openWishListPage();
 
-//        wishListPage.findColumn("Delete");
-
         // check if the wishList exists, uses wishListToDelete variable
         checkForWishListPresence();
 
@@ -31,8 +34,7 @@ public class HomeWork extends TestShopScenario {
         deleteWishList(wishListToDelete);
 
         // reset start situation, uses wishListToDelete variable
-
-        createWishListForNextRun();
+//        createWishListForNextRun();
 
 //        navigateToLoginPage();
 //        logInWithCredentials();
@@ -65,19 +67,26 @@ public class HomeWork extends TestShopScenario {
 
     private void deleteWishList(String wishListToDelete) {
         wishListPage.deleteWishList(wishListToDelete, actionToPerform);
-        while (wishListPage.getCurrentListLength() == wishListPage.getLengthOfInitialList()) {
-            if (wishListPage.getCurrentListLength() < wishListPage.getLengthOfInitialList()) {
-                continue;
-            } else {
-                continue;
-            }
-        }
+//        while (wishListPage.getCurrentListLength() == wishListPage.getLengthOfInitialList()) {
+//            if (wishListPage.getCurrentListLength() < wishListPage.getLengthOfInitialList()) {
+//                continue;
+//            } else {
+//                continue;
+//            }
+//        }
+//        Thread.sleep(200);
+        openMyAccountPage();
+        openWishListPage();
         assertThat(wishListPage.checkForWishListPresence(wishListToDelete)).isEqualTo(false).as("the wishList is not deleted");
     }
 
+    private void openMyAccountPage() {
+        driver.findElement(loginButton).click();
+    }
+
     private void createWishListForNextRun() {
-        navigateToLoginPage();
-        logInWithCredentials();
+//        navigateToLoginPage();
+//        logInWithCredentials();
         openWishListPage();
         assertThat(wishListPage.checkForWishListPresence(wishListToDelete)).isEqualTo(false).as("the wishList already exists");
         wishListPage.createWishList(wishListToDelete);

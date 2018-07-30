@@ -64,8 +64,10 @@ public class WishListPage extends GenericPage {
         int wishList = getWishListLocation(wishListToDelete);
         List<WebElement> table = getTable();
         WebElement cell = table.get(wishList).findElements(By.tagName("td")).get(button);
-        cell.findElement(By.cssSelector("a")).click();
+        WebElement buttonToClick = cell.findElement(By.cssSelector("a"));
+        waitAndClick(buttonToClick, 2);
         driver.switchTo().alert().accept();
+
     }
 
 //    public void deleteWishList() {
@@ -104,6 +106,7 @@ public class WishListPage extends GenericPage {
         driver.findElement(newWishListNameInputField).clear();
         driver.findElement(newWishListNameInputField).sendKeys(wishListToDelete);
         driver.findElement(saveWishListButton).click();
+
     }
 
     public int getLengthOfInitialList() {
