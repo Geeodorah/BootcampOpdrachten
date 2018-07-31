@@ -18,8 +18,5 @@ public class MyAccountPage extends GenericPage{
         driver.findElement(button).click();
     }
 
-    @Override
-    public String getHeaderName(){
-        return driver.findElement(By.className("page-heading")).getText();
-    }
+
 }

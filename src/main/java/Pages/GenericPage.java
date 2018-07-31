@@ -11,6 +11,8 @@ import java.util.List;
 public class GenericPage {
     private final WebDriver driver;
 
+    private By homePage = By.cssSelector("#header_logo > a > img");
+
     public GenericPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -21,11 +23,6 @@ public class GenericPage {
 
     public WebElement findElementBy(By element) {
         return driver.findElement(element);
-    }
-
-    public List<WebElement> findMultipleElementsBy(By element) {
-
-        return driver.findElements(element);
     }
 
     public void useInputField(By element, String input) {
@@ -39,5 +36,9 @@ public class GenericPage {
     public void waitAndClick(WebElement element, int waitFor) {
         WebElement button = new WebDriverWait(driver, waitFor).until(ExpectedConditions.elementToBeClickable(element));
         button.click();
+    }
+
+    public void openHomePage() {
+       clickElementBy(homePage);
     }
 }

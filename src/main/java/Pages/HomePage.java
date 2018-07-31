@@ -9,7 +9,7 @@ public class HomePage extends GenericPage {
 
 
 
-//    private By loginButton = By.cssSelector("a.login");
+//    private By getMyAccountLogInButton = By.cssSelector("a.login");
     private By loginButton = By.className("header_user_info");
 
 
@@ -19,16 +19,11 @@ public class HomePage extends GenericPage {
     }
 
 
-    public void navigateToLogInPage() {
+    public void clickOnMyAccountLogInButton() {
         clickElementBy(loginButton);
-//        driver.findElementBy(loginButton).click();
     }
 
-    public WebElement loginButton(){
-        return driver.findElement(loginButton);
-    }
-
-    public WebElement logOutButton(){
+    public WebElement getMyAccountLogInButton(){
         return driver.findElement(loginButton);
     }
 }

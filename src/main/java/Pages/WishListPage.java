@@ -1,12 +1,15 @@
 package Pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static Pages.Parameters.DELETE;
 
 public class WishListPage extends GenericPage {
     private final WebDriver driver;
@@ -55,8 +58,8 @@ public class WishListPage extends GenericPage {
     public int getWishListLocation(String wishListToDelete) {
         // get the table
         List<WebElement> table = getTable();
-        // find out wishlist position / vertical
-        return  findCell(table, wishListToDelete);
+        // find out wishList position / vertical
+        return findCell(table, wishListToDelete);
     }
 
     public void deleteWishList(String wishListToDelete, String action) {
@@ -64,23 +67,44 @@ public class WishListPage extends GenericPage {
         int wishList = getWishListLocation(wishListToDelete);
         List<WebElement> table = getTable();
         WebElement cell = table.get(wishList).findElements(By.tagName("td")).get(button);
-        WebElement buttonToClick = cell.findElement(By.cssSelector("a"));
-        waitAndClick(buttonToClick, 2);
-        driver.switchTo().alert().accept();
-
+        clickCell(cell, action);
     }
 
-//    public void deleteWishList() {
-//        List<WebElement> table = getTableContents();
-//        table.get(listPositionToDelete).findElementBy(By.cssSelector("td.wishlist_delete > a")).click();
-//        driver.switchTo().alert().accept();
-//    }
+    public void clickCell(WebElement cell, String action) {
+        driver.manage().window().setSize(new Dimension(750, 650));
+        if (action != DELETE) {
+            if (cell.getSize().height < 40) {
+                cellClick(cell);
+            }
+        } else {
+
+            cellClick(cell);
+            driver.switchTo().alert().accept();
+        }
+        driver.manage().window().maximize();
+    }
+
+    public int findCheckedCell(List<WebElement> element, String rowNameContains) {
+        int positionInList = 0;
+        for (WebElement e : element) {
+            if (e.getText().contains(rowNameContains)) {
+                break;
+            }
+            positionInList++;
+        }
+        return positionInList;
+    }
+
+    public void cellClick(WebElement cell) {
+        WebElement buttonToClick = cell.findElement(By.cssSelector("a"));
+        waitAndClick(buttonToClick, 2);
+
+    }
 
     public List<WebElement> getTableContents() {
         List<WebElement> table = driver.findElements(tableContents);
         return table;
     }
-
 
     public Boolean checkForWishListPresence(String wishListToDelete) {
         int positionInList = 0;
@@ -95,9 +119,7 @@ public class WishListPage extends GenericPage {
                 checkList.add(false);
             }
             positionInList++;
-
         }
-
         return checkList.contains(true);
     }
 
@@ -106,19 +128,5 @@ public class WishListPage extends GenericPage {
         driver.findElement(newWishListNameInputField).clear();
         driver.findElement(newWishListNameInputField).sendKeys(wishListToDelete);
         driver.findElement(saveWishListButton).click();
-
-    }
-
-    public int getLengthOfInitialList() {
-        return lengthOfInitialList;
-    }
-
-    public int getCurrentListLength() {
-        return getTableContents().size();
-    }
-
-    @Override
-    public String getHeaderName() {
-        return driver.findElement(By.className("page-heading")).getText();
     }
 }
