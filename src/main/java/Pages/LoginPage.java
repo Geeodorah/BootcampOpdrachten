@@ -16,9 +16,9 @@ public class LoginPage {
         this.driver = driver;
     }
 
-    public void login(String email, String password) {
-        driver.findElement(emailTextField).sendKeys(email);
-        driver.findElement(passwordTextField).sendKeys(password);
+    public void login(String[] credentials) {
+        driver.findElement(emailTextField).sendKeys(credentials[0]);
+        driver.findElement(passwordTextField).sendKeys(credentials[1]);
         driver.findElement(submitButton).click();
     }
 }

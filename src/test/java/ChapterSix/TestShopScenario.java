@@ -15,8 +15,6 @@ public class TestShopScenario  {
     protected MyAccountPage myAccountPage;
     protected WishListPage wishListPage;
 
-
-
     @BeforeMethod
     public void setUp() {
         ChromeDriverManager.getInstance().setup();
@@ -26,16 +24,12 @@ public class TestShopScenario  {
         loginPage = new LoginPage(driver);
         myAccountPage = new MyAccountPage(driver);
         wishListPage = new WishListPage(driver);
-
-
         driver.get(url);
         driver.manage().window().maximize();
     }
 
-
-
-//    @AfterMethod
-//    public void tearDown() {
-//        driver.quit();
-//    }
+    @AfterMethod
+    public void tearDown() {
+        driver.quit();
+    }
 }
