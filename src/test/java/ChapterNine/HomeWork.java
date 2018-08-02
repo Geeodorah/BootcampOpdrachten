@@ -1,16 +1,14 @@
 package ChapterNine;
 
 import ChapterSix.TestShopScenario;
-import Pages.HomePage;
-import Pages.LoginPage;
-import Pages.MyAccountPage;
-import Pages.WishListPage;
+import Pages.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
+import static Pages.MyAccountPage.wishListButton;
 import static Pages.Parameters.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,9 +22,10 @@ public class HomeWork extends TestShopScenario {
     LoginPage loginPage;
     MyAccountPage myAccountPage;
     WishListPage wishListPage;
+    ContactUsPage contactUsPage;
 
     @Test
-    private void deleteWishList() {
+    public void deleteWishList() {
         this.homePage = new HomePage(driver);
         this.loginPage = new LoginPage(driver);
         this.myAccountPage = new MyAccountPage(driver);
@@ -53,7 +52,7 @@ public class HomeWork extends TestShopScenario {
     }
 
     @Test
-    private void changeDefaultWishList(){
+    public void changeDefaultWishList(){
         this.homePage = new HomePage(driver);
         this.loginPage = new LoginPage(driver);
         this.myAccountPage = new MyAccountPage(driver);
@@ -64,13 +63,14 @@ public class HomeWork extends TestShopScenario {
 
         logInWithCredentials(AT_BRUGMAN);
 
+
         openWishListPage();
 
         changeDefault();
     }
 
     @Test
-    private void shareLinkUsed(){
+    public void shareLinkUsed(){
         this.homePage = new HomePage(driver);
         this.loginPage = new LoginPage(driver);
         this.myAccountPage = new MyAccountPage(driver);
@@ -80,12 +80,42 @@ public class HomeWork extends TestShopScenario {
 
         openLoginPage();
 
-        logInWithCredentials(AT_POLTEQ);
+        logInWithCredentials(AT_POLTEQ)
+        .clickButton(wishListButton);
 
         openWishListPage();
 
         validateShareLinkIncrease();
     }
+
+    @Test
+    public void contactUs(){
+        this.homePage = new HomePage(driver);
+        this.contactUsPage = new ContactUsPage(driver);
+
+        openContactUsPAge();
+        WebElement alert =  contactUsPage.fillinContactFormTest("dikke massage gek!", "ben@burmgan.com", "79159");
+        assertThat(alert.getText()).as("this is not a or the current succes message").isEqualTo(contactUsPage.getSuccesMessage());
+
+    }
+
+    @Test
+    public void contactUsNOK(){
+        this.homePage = new HomePage(driver);
+        this.contactUsPage = new ContactUsPage(driver);
+        String email = "werktniethe";
+
+        openContactUsPAge();
+        WebElement alert = contactUsPage.fillinContactFormTest("dikke massage gek!", email, "79159");
+        assertThat(driver.findElement(By.className("alert")).isDisplayed()).as("account was created with " + email).isTrue();
+        assertThat(alert.getText()).as("This is not a or the current error message").contains("There is 1 error");
+    }
+
+
+    private void openContactUsPAge() {
+        homePage.clickOnContactUsButton();
+    }
+
 
     private void validateShareLinkIncrease() {
         wishListPage.performActionOnCell(wishListToUse, actionToPerform);
@@ -110,14 +140,15 @@ public class HomeWork extends TestShopScenario {
         assertThat(driver.getTitle()).as("whoops, we arn't on the login / authentication page" + getCurrentPage()).isEqualTo("Authentication - TestShop");
     }
 
-    private void logInWithCredentials(String[] credentials) {
+    private MyAccountPage logInWithCredentials(String[] credentials) {
         loginPage.login(credentials);
         assertThat(myAccountPage.getHeaderName()).as("not logged in" + getCurrentPage()).isEqualTo("MY ACCOUNT");
         assertThat(homePage.getMyAccountLogInButton().isDisplayed()).as("Login failed").isTrue();
+        return new MyAccountPage(driver);
     }
 
     private void openWishListPage() {
-        myAccountPage.clickButton(myAccountPage.wishListButton);
+        myAccountPage.clickButton(wishListButton);
         assertThat(wishListPage.getHeaderName()).as("you are not on the wishList page" + getCurrentPage()).isEqualTo("MY WISHLISTS");
     }
 

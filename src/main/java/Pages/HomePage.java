@@ -12,6 +12,8 @@ public class HomePage extends GenericPage {
 //    private By getMyAccountLogInButton = By.cssSelector("a.login");
     private By loginButton = By.className("header_user_info");
 
+    private By contactUSButton = By.id("contact-link");
+
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -21,6 +23,11 @@ public class HomePage extends GenericPage {
 
     public void clickOnMyAccountLogInButton() {
         waitAndClick(driver.findElement(loginButton), 4);
+    }
+
+    public void clickOnContactUsButton(){
+        waitAndClick(driver.findElement(contactUSButton), 4);
+
     }
 
     public WebElement getMyAccountLogInButton(){

@@ -2,6 +2,7 @@ package Pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 
@@ -23,7 +24,7 @@ public class ContactUsPage {
         this.driver = driver;
     }
 
-    public void fillinContactFormTest(String subject, String message, String email, String orderNumber) {
+    public WebElement fillinContactFormTest(String message, String email, String orderNumber) {
         Select dropdown = new Select(driver.findElement(SubjectDropdown));
         dropdown.selectByIndex(1);
         driver.findElement(messageTextField).sendKeys(message);
@@ -31,7 +32,17 @@ public class ContactUsPage {
         driver.findElement(orderIdTextField).sendKeys(orderNumber);
         driver.findElement(sendButton).click();
 
+        return getAlert();
 
 
+
+    }
+
+    public WebElement getAlert() {
+        return driver.findElement(By.className("alert"));
+    }
+
+    public String getSuccesMessage(){
+        return "Your message has been successfully sent to our team.";
     }
 }
