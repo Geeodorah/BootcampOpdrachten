@@ -6,9 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 
-public class ContactUsPage {
+public class ContactUsPage extends GenericPage {
 
-    private final WebDriver driver;
+    private WebDriver driver;
 
     private By emailTextField = By.cssSelector("input#email");
 
@@ -21,6 +21,7 @@ public class ContactUsPage {
     private By SubjectDropdown = By.id("id_contact");
 
     public ContactUsPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
@@ -35,14 +36,21 @@ public class ContactUsPage {
         return getAlert();
 
 
-
     }
 
     public WebElement getAlert() {
         return driver.findElement(By.className("alert"));
     }
 
-    public String getSuccesMessage(){
+    public String getSuccesMessage() {
         return "Your message has been successfully sent to our team.";
+    }
+
+    public void clickOnBody() {
+        waitAndClick(driver.findElement(By.cssSelector("#message")), 2);
+    }
+
+    public void fillinEmail(String email){
+        driver.findElement(emailTextField).sendKeys(email);
     }
 }
