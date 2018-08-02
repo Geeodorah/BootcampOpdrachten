@@ -36,7 +36,7 @@ public class FillCartTest {
 
         driver.findElement(By.cssSelector(".logo")).click();
         driver.findElement(By.cssSelector("#tags_block_left > div > a.tag_level3.first_item")).click();
-//        driver.findElement(By.className("replace-2x")).click();
+//        driver.findElementBy(By.className("replace-2x")).click();
         driver.findElement(By.cssSelector("#product_list > li.ajax_block_product.col-xs-12.col-sm-6.col-md-4.last-line.last-item-of-tablet-line.last-mobile-line > div > div.left-block > div > a > img")).click();
         driver.findElement(By.cssSelector("#add_to_cart")).click();
 
@@ -50,13 +50,13 @@ public class FillCartTest {
 
 
 //        assertThat(emptyCartAlert.getText()).contains("Product").as("cart is not empty");
-//        driver.findElement(By.className("span.ajax_cart_product_txt:nth-child(3)")).click();
+//        driver.findElementBy(By.className("span.ajax_cart_product_txt:nth-child(3)")).click();
 
 //
-//        WebElement proceedButton = driver.findElement(By.cssSelector(".standard-checkout > span:nth-child(1)"));
+//        WebElement proceedButton = driver.findElementBy(By.cssSelector(".standard-checkout > span:nth-child(1)"));
 //        assertThat(emptyCartAlert.getText()).contains("empty").as("cart is not empty");
         // or via the overlay
-//        driver.findElement(By.cssSelector("ul.active > li:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(4) > a:nth-child(1) > span:nth-child(1)")).click();
+//        driver.findElementBy(By.cssSelector("ul.active > li:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(4) > a:nth-child(1) > span:nth-child(1)")).click();
 
     }
 }
