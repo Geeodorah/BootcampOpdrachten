@@ -109,6 +109,7 @@ public class HomeWork extends TestShopScenario {
         WebElement alert = contactUsPage.fillinContactFormTest("dikke massage gek!", email, "79159");
         assertThat(driver.findElement(By.className("alert")).isDisplayed()).as("account was created with " + email).isTrue();
         assertThat(alert.getText()).as("This is not a or the current error message").contains("There is 1 error");
+        assertThat(driver.findElement(By.className("form-control")).isDisplayed()).as("no error feedback given in the field").isTrue();
     }
 
 
