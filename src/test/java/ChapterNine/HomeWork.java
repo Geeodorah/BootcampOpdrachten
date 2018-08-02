@@ -1,6 +1,10 @@
 package ChapterNine;
 
 import ChapterSix.TestShopScenario;
+import Pages.HomePage;
+import Pages.LoginPage;
+import Pages.MyAccountPage;
+import Pages.WishListPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,8 +19,18 @@ public class HomeWork extends TestShopScenario {
     public String actionToPerform = DELETE;
     public String[] credentials = AT_BRUGMAN;
 
+
+    HomePage homePage;
+    LoginPage loginPage;
+    MyAccountPage myAccountPage;
+    WishListPage wishListPage;
+
     @Test
     private void deleteWishList() {
+        this.homePage = new HomePage(driver);
+        this.loginPage = new LoginPage(driver);
+        this.myAccountPage = new MyAccountPage(driver);
+        this.wishListPage = new WishListPage(driver);
 
         openLoginPage();
 
@@ -40,6 +54,10 @@ public class HomeWork extends TestShopScenario {
 
     @Test
     private void changeDefaultWishList(){
+        this.homePage = new HomePage(driver);
+        this.loginPage = new LoginPage(driver);
+        this.myAccountPage = new MyAccountPage(driver);
+        this.wishListPage = new WishListPage(driver);
         this.actionToPerform = DEFAULT_TOGGLE;
 
         openLoginPage();
@@ -53,6 +71,10 @@ public class HomeWork extends TestShopScenario {
 
     @Test
     private void shareLinkUsed(){
+        this.homePage = new HomePage(driver);
+        this.loginPage = new LoginPage(driver);
+        this.myAccountPage = new MyAccountPage(driver);
+        this.wishListPage = new WishListPage(driver);
         this.actionToPerform = VIEWED;
         this.wishListToUse = CARDIO;
 
@@ -72,7 +94,7 @@ public class HomeWork extends TestShopScenario {
         driver.navigate().refresh();
         wishListPage.performActionOnCell(wishListToUse, actionToPerform);
         int viewsAfterAction = Integer.parseInt(wishListPage.getCellContent());
-        assertThat(viewsAfterAction).isGreaterThan(initialViews).as("the link didn't increase the of views in table");
+        assertThat(viewsAfterAction).as("the link didn't increase the of views in table").isGreaterThan(initialViews);
     }
 
     private void openShareURL(){
@@ -83,32 +105,31 @@ public class HomeWork extends TestShopScenario {
     }
 
     private void openLoginPage() {
-        assertThat(homePage.getMyAccountLogInButton().isDisplayed()).isTrue().as("There is already a user logged in");
+//        assertThat(homePage.getMyAccountLogInButton().isDisplayed()).as("There is already a user logged in").isTrue();
         homePage.clickOnMyAccountLogInButton();
-        assertThat(driver.getTitle()).isEqualTo("Authentication - TestShop").as("whoops, we arn't on the login / authentication page" + getCurrentPage());
+        assertThat(driver.getTitle()).as("whoops, we arn't on the login / authentication page" + getCurrentPage()).isEqualTo("Authentication - TestShop");
     }
 
     private void logInWithCredentials(String[] credentials) {
         loginPage.login(credentials);
-        assertThat(myAccountPage.getHeaderName()).isEqualTo("MY ACCOUNT").as("not logged in" + getCurrentPage());
-        assertThat(homePage.getMyAccountLogInButton().isDisplayed()).isTrue().as("Login failed");
+        assertThat(myAccountPage.getHeaderName()).as("not logged in" + getCurrentPage()).isEqualTo("MY ACCOUNT");
+        assertThat(homePage.getMyAccountLogInButton().isDisplayed()).as("Login failed").isTrue();
     }
 
     private void openWishListPage() {
         myAccountPage.clickButton(myAccountPage.wishListButton);
-        assertThat(wishListPage.getHeaderName()).isEqualTo("MY WISHLISTS").as("you are not on the wishList page" + getCurrentPage());
+        assertThat(wishListPage.getHeaderName()).as("you are not on the wishList page" + getCurrentPage()).isEqualTo("MY WISHLISTS");
     }
 
     private void checkForWishListPresence() {
         if (!wishListPage.checkForWishListPresence(wishListToUse)) {
             wishListPage.createWishList(wishListToUse);
         }
-        assertThat(wishListPage.checkForWishListPresence(wishListToUse)).isEqualTo(true).as("the table doesn't contain your wishList even after attempting to create one");
+        assertThat(wishListPage.checkForWishListPresence(wishListToUse)).as("the table doesn't contain your wishList even after attempting to create one").isEqualTo(true);
     }
 
     private void deleteWishList(String wishListToDelete) {
         wishListPage.performActionOnCell(wishListToDelete, actionToPerform);
-
         openMyAccountPage();
         openWishListPage();
         assertDeletion();
@@ -141,7 +162,7 @@ public class HomeWork extends TestShopScenario {
 
     private void assertDeletion() {
         if (actionToPerform == DELETE) {
-            assertThat(wishListPage.checkForWishListPresence(wishListToUse)).isEqualTo(false).as("the wishList is not deleted");
+            assertThat(wishListPage.checkForWishListPresence(wishListToUse)).as("the wishList is not deleted").isEqualTo(false);
         }
     }
 

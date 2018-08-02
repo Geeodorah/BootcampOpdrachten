@@ -20,10 +20,11 @@ public class HomePage extends GenericPage {
 
 
     public void clickOnMyAccountLogInButton() {
-        clickElementBy(loginButton);
+        waitAndClick(driver.findElement(loginButton), 4);
     }
 
     public WebElement getMyAccountLogInButton(){
-        return driver.findElement(loginButton);
+        WebElement loginAccountButton = driver.findElement(loginButton);
+        return loginAccountButton;
     }
 }

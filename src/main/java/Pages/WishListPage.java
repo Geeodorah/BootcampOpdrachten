@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static Pages.Parameters.DEFAULT_TOGGLE;
 import static Pages.Parameters.DELETE;
@@ -100,10 +101,18 @@ public class WishListPage extends GenericPage {
     }
 
     public void clickCell(WebElement cell, String action) {
+        //*todo return cell element and seperate the action
         if (action == DEFAULT_TOGGLE) {
+            boolean elementExists = false;
+            try {
+                driver.findElement(By.className("is_wish_list_default"));
+                elementExists = true;
+            }
+            catch (NoSuchElementException exception){
+            }
             driver.manage().window().setSize(new Dimension
                     (screenSizeToValidateCheckMark[0], screenSizeToValidateCheckMark[1]));
-            if (cell.getSize().height < cellSize) {
+            if (cell.getSize().height < cellSize && !elementExists) {
                 cellClick(cell);
                 driver.manage().window().maximize();
             }

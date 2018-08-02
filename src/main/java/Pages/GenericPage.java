@@ -34,11 +34,13 @@ public class GenericPage {
     }
 
     public void waitAndClick(WebElement element, int waitFor) {
-        WebElement button = new WebDriverWait(driver, waitFor).until(ExpectedConditions.elementToBeClickable(element));
+        WebDriverWait wait = new WebDriverWait(driver,waitFor);
+        WebElement button = wait.until(ExpectedConditions.visibilityOf(element));
         button.click();
+//        WebElement button = new WebDriverWait(driver, waitFor).until(ExpectedConditions.elementToBeClickable(element));
     }
 
     public void openHomePage() {
-       clickElementBy(homePage);
+        clickElementBy(homePage);
     }
 }
