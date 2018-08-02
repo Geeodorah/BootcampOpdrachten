@@ -25,7 +25,7 @@ public class HomeWork extends TestShopScenario {
     ContactUsPage contactUsPage;
 
     @Test
-    private void deleteWishList() {
+    public void deleteWishList() {
         this.homePage = new HomePage(driver);
         this.loginPage = new LoginPage(driver);
         this.myAccountPage = new MyAccountPage(driver);
@@ -52,7 +52,7 @@ public class HomeWork extends TestShopScenario {
     }
 
     @Test
-    private void changeDefaultWishList(){
+    public void changeDefaultWishList(){
         this.homePage = new HomePage(driver);
         this.loginPage = new LoginPage(driver);
         this.myAccountPage = new MyAccountPage(driver);
@@ -70,7 +70,7 @@ public class HomeWork extends TestShopScenario {
     }
 
     @Test
-    private void shareLinkUsed(){
+    public void shareLinkUsed(){
         this.homePage = new HomePage(driver);
         this.loginPage = new LoginPage(driver);
         this.myAccountPage = new MyAccountPage(driver);
@@ -89,13 +89,28 @@ public class HomeWork extends TestShopScenario {
     }
 
     @Test
-    private void contactUS(){
+    public void contactUs(){
         this.homePage = new HomePage(driver);
         this.contactUsPage = new ContactUsPage(driver);
 
         openContactUsPAge();
-        contactUsPage.fillinContactFormTest("Subject1", "dikke massage gek!", "ben@burmgan.com", "79159");
+        WebElement alert =  contactUsPage.fillinContactFormTest("dikke massage gek!", "ben@burmgan.com", "79159");
+        assertThat(alert.getText()).as("this is not a or the current succes message").isEqualTo(contactUsPage.getSuccesMessage());
+
     }
+
+    @Test
+    public void contactUsNOK(){
+        this.homePage = new HomePage(driver);
+        this.contactUsPage = new ContactUsPage(driver);
+        String email = "werktniethe";
+
+        openContactUsPAge();
+        WebElement alert = contactUsPage.fillinContactFormTest("dikke massage gek!", email, "79159");
+        assertThat(driver.findElement(By.className("alert")).isDisplayed()).as("account was created with " + email).isTrue();
+        assertThat(alert.getText()).as("This is not a or the current error message").contains("There is 1 error");
+    }
+
 
     private void openContactUsPAge() {
         homePage.clickOnContactUsButton();
