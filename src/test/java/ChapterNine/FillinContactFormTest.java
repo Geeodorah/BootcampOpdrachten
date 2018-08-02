@@ -26,7 +26,7 @@ public class FillinContactFormTest extends TestShopScenario {
 
 
         ContactUsPage contactUsPage = new ContactUsPage(driver);
-        contactUsPage.fillinContactFormTest(subject, message, email, orderNumber);
+        contactUsPage.fillinContactFormTest(message, email, orderNumber);
         assertThat(driver.findElement(By.cssSelector("#center_column > p")).isDisplayed()).isTrue();
 
     }
