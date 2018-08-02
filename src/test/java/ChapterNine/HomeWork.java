@@ -93,7 +93,7 @@ public class HomeWork extends TestShopScenario {
         this.homePage = new HomePage(driver);
         this.contactUsPage = new ContactUsPage(driver);
 
-        openContactUsPAge();
+        openContactUsPage();
         WebElement alert =  contactUsPage.fillinContactFormTest("dikke massage gek!", "ben@burmgan.com", "79159");
         assertThat(alert.getText()).as("this is not a or the current succes message").isEqualTo(contactUsPage.getSuccesMessage());
 
@@ -105,15 +105,18 @@ public class HomeWork extends TestShopScenario {
         this.contactUsPage = new ContactUsPage(driver);
         String email = "werktniethe";
 
-        openContactUsPAge();
+        openContactUsPage();
+        contactUsPage.fillinEmail(email);
+        contactUsPage.clickOnBody();
+        assertThat(driver.findElement(By.cssSelector("[class='form-group form-error']")).isDisplayed()).as("no error feedback given in the field").isTrue();
+
         WebElement alert = contactUsPage.fillinContactFormTest("dikke massage gek!", email, "79159");
         assertThat(driver.findElement(By.className("alert")).isDisplayed()).as("account was created with " + email).isTrue();
         assertThat(alert.getText()).as("This is not a or the current error message").contains("There is 1 error");
-        assertThat(driver.findElement(By.className("form-control")).isDisplayed()).as("no error feedback given in the field").isTrue();
     }
 
 
-    private void openContactUsPAge() {
+    private void openContactUsPage() {
         homePage.clickOnContactUsButton();
     }
 
