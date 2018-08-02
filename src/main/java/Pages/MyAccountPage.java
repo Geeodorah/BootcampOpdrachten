@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 public class MyAccountPage extends GenericPage{
     private final WebDriver driver;
 
-    public By wishListButton = By.className("lnk_wishlist");
+    public static By wishListButton = By.className("lnk_wishlist");
 
     public MyAccountPage(WebDriver driver) {
         super(driver);
