@@ -5,27 +5,45 @@
 <suite name="Suite" parallel="none">
     <test name="customer service mail">
         <parameter name="subject" value="Customer service"/>
-        <parameter name="email" value="bootcamper@feelthepain.com"/>
+        <parameter name="email" value="heavylifter@feelthepain.com"/>
         <parameter name="orderID" value="4321234"/>
-        <parameter name="message" value="dikke massage gek!"/>
+        <parameter name="message" value="Waar zijn m'n eiwitten"/>
         <classes>
             <class name="DataDrivenTest.DataDrivenTest"/>
         </classes>
     </test>
     <test name="webmaster mail">
-        <parameter name="subject" value="Webmaster"/>
-        <parameter name="email" value="piet@petteflet.com"/>
-        <parameter name="orderID" value="fietstas"/>
-        <parameter name="message" value="stella bikes"/>
+        <parameter name="subject" value="Customer Service"/>
+        <parameter name="email" value="hipster@tester.com"/>
+        <parameter name="orderID" value="9876"/>
+        <parameter name="message" value="Mn MAcBook is te oud :("/>
         <classes>
             <class name="DataDrivenTest.DataDrivenTest"/>
         </classes>
     </test>
     <test name="false email">
         <parameter name="subject" value="Customer service"/>
-        <parameter name="email" value="-@-.-"/>
-        <parameter name="orderID" value="4321234"/>
-        <parameter name="message" value="dikke massage gek!"/>
+        <parameter name="email" value="feelfit@nopainnogain.com"/>
+        <parameter name="orderID" value="12345"/>
+        <parameter name="message" value="Busted my iphone while lifting bro!"/>
+        <classes>
+            <class name="DataDrivenTest.DataDrivenTest"/>
+        </classes>
+    </test>
+	<test name="email 2">
+        <parameter name="subject" value="Customer service"/>
+        <parameter name="email" value="test@guru.com"/>
+        <parameter name="orderID" value="666"/>
+        <parameter name="message" value="Still waiting for my Tmap book!"/>
+        <classes>
+            <class name="DataDrivenTest.DataDrivenTest"/>
+        </classes>
+    </test>
+	<test name="false email 5">
+        <parameter name="subject" value="Customer service"/>
+        <parameter name="email" value="cross@fit.com"/>
+        <parameter name="orderID" value="7777"/>
+        <parameter name="message" value="Iphone 8, when?"/>
         <classes>
             <class name="DataDrivenTest.DataDrivenTest"/>
         </classes>

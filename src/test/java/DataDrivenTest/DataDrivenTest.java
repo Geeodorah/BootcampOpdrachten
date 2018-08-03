@@ -22,8 +22,6 @@ public class DataDrivenTest extends TestShopScenarioDataDriven {
         contactUsPage.fillinContactFormTest(message,email,orderID,subject);
 
         assertThat(driver.findElement(By.cssSelector("#center_column > p")).isDisplayed()).isTrue();
-        
-
     }
 
 }

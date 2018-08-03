@@ -94,7 +94,7 @@ public class HomeWork extends TestShopScenario {
         this.contactUsPage = new ContactUsPage(driver);
 
         openContactUsPage();
-        WebElement alert =  contactUsPage.fillinContactFormTest("dikke massage gek!", "ben@burmgan.com", "79159", "Customer Service");
+        WebElement alert =  contactUsPage.fillinContactFormTest("dikke massage gek!", "ben@burmgan.com", "79159", "Customer service");
         assertThat(alert.getText()).as("this is not a or the current succes message").isEqualTo(contactUsPage.getSuccesMessage());
 
     }
