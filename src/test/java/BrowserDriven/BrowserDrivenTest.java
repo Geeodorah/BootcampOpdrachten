@@ -23,7 +23,7 @@ public class BrowserDrivenTest extends TestShopScenarioDriven {
 
 
         ContactUsPage contactUsPage = new ContactUsPage(driver);
-        contactUsPage.fillinContactFormTest(message, email, orderNumber);
+        contactUsPage.fillinContactFormTest(message, email, orderNumber, "Customer Service");
         assertThat(driver.findElement(By.cssSelector("#center_column > p")).isDisplayed()).isTrue();
 
     }

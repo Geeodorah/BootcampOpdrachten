@@ -25,9 +25,10 @@ public class ContactUsPage extends GenericPage {
         this.driver = driver;
     }
 
-    public WebElement fillinContactFormTest(String message, String email, String orderNumber) {
+    public WebElement fillinContactFormTest(String message, String email, String orderNumber, String subject) {
         Select dropdown = new Select(driver.findElement(SubjectDropdown));
-        dropdown.selectByIndex(1);
+//        dropdown.selectByIndex(1);
+        dropdown.selectByVisibleText(subject);
         driver.findElement(messageTextField).sendKeys(message);
         driver.findElement(emailTextField).sendKeys(email);
         driver.findElement(orderIdTextField).sendKeys(orderNumber);
