@@ -1,6 +1,5 @@
-package ChapterNine;
+package BrowserDriven;
 
-import ChapterSix.TestShopScenario;
 import Pages.ContactUsPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -9,8 +8,7 @@ import org.testng.annotations.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-
-public class FillinContactFormTest extends TestShopScenario {
+public class BrowserDrivenTest extends TestShopScenarioDriven {
 
     @Test
     public void fillInForm() {
@@ -19,14 +17,13 @@ public class FillinContactFormTest extends TestShopScenario {
         assertThat(logInButton.isDisplayed()).isTrue().as("a user is logged in");
         driver.findElement(By.cssSelector("li#header_link_contact > a")).click();
 
-        String subject = "Customer service";
-        String message = "Ipod defect while lifting, need new one";
+        String message = "dikke massage gek!";
         String email = "bootcamper@feelthepain.com";
         String orderNumber = "4321234";
 
 
         ContactUsPage contactUsPage = new ContactUsPage(driver);
-        contactUsPage.fillinContactFormTest(message, email, orderNumber, subject);
+        contactUsPage.fillinContactFormTest(message, email, orderNumber, "Customer Service");
         assertThat(driver.findElement(By.cssSelector("#center_column > p")).isDisplayed()).isTrue();
 
     }

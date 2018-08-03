@@ -16,7 +16,7 @@ public class BrowserFactoryAdvanced {
         CHROME,
         FIREFOX,
         IE,
-        EDGE,
+        EDGE
     }
 
     public static WebDriver getDriver(DriversEnum drivers) {
